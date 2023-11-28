@@ -21,7 +21,7 @@ class Client extends Authenticatable
         'Nom',
         'Prenom',
         'email',
-        'telephone',
+        'Telephone',
         'password',
     ];
 

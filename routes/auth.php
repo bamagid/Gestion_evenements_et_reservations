@@ -13,6 +13,9 @@ use App\Http\Controllers\Auth\MultiauthMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('multiauth')->group(function () {
+    Route::get('registeradmin', [RegisteredUserController::class, 'create1']);
+    Route::post('registered', [RegisteredUserController::class, 'store1'])
+                ->name('registeradmin');
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
