@@ -17,7 +17,6 @@ class AssociationFactory extends Factory
      */
     public function definition(): array
     {
-
         return [
             'Nom'=> fake()->name(),
             'Date_creation'=>fake()->date(),

@@ -22,7 +22,7 @@ class Client extends Authenticatable
         'Prenom',
         'email',
         'telephone',
-        'mot_de_passe',
+        'password',
     ];
 
     /**

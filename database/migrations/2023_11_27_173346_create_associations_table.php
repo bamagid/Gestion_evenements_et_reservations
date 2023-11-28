@@ -11,22 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('associations', function (Blueprint $table) {
             $table->id();
             $table->string('Nom');
-            $table->string('Prenom');
+            $table->date('Date_creation');
+            $table->string('slogan');
+            $table->string('logo');
             $table->string('email')->unique();
-            $table->integer('Telephone');
-            $table->string('password');
+            $table->string('mot_de_passe');
             $table->rememberToken();
             $table->timestamps();
-        });}
+        });
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('associations');
     }
 };

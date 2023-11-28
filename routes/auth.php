@@ -34,10 +34,7 @@ Route::middleware('multiauth')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
-});
-
-Route::middleware('multiauth')->group(function () {
-    Route::get('verify-email', EmailVerificationPromptController::class)
+                Route::get('verify-email', EmailVerificationPromptController::class)
                 ->name('verification.notice');
 
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
