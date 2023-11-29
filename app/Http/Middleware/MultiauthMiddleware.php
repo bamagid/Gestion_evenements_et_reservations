@@ -16,16 +16,15 @@ class MultiauthMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('client')->check()) {
-            return redirect(RouteServiceProvider::HOME);
+            return $next($request);
         }
         if (Auth::guard('association')->check()) {
-            return redirect(RouteServiceProvider::ADMIN_HOME);
+            return $next($request);
         }
-        
-        return $next($request);
+
+        return redirect()->route('login');
     }
 }
-

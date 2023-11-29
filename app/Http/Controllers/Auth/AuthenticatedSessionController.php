@@ -38,10 +38,9 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         dd($request);
-       Auth::guard('client')->logout();
-        $request->session()->flush();
- 
-        // $request->session()->regenerateToken();
+        $request->auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
  
         return redirect('/');
 

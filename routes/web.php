@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\auth\AssociationController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,7 @@ Route::middleware('multiauth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/deconnect', [AssociationController::class, 'destroy1']);
 });
 
 require __DIR__.'/auth.php';

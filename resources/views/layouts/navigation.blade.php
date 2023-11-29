@@ -39,13 +39,9 @@
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <form method="GET" action="{{ route('logoutadmin') }}">
-                            @csrf
-
-                            <button type="submit">
-                                {{ __('Se deconnecter ') }}
-                            </button>
-                        </form>
+                        <x-dropdown-link :href="route('deconnect')">
+                            {{ __('Se deconnecter') }}
+                        </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
             </div>

@@ -108,13 +108,13 @@ class AssociationController extends Controller
     }
 
     public function destroy1(Request $request){
-        dd($request);
+       
         Auth::guard('association')->logout();
-        // $request->session()->flush();
+        session()->invalidate();
  
-        // $request->session()->regenerateToken();
+        session()->regenerateToken();
  
-        return view('welcome');
+        return redirect('/');
 
     }
 }
