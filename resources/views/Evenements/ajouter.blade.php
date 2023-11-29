@@ -4,92 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ajouter un evenement</title>
 </head>
 <body>
+<a href="/evenement/modifier/1">Modifier</a>
     
     <div class="flex items-center justify-center p-12">
-        <!-- Author: FormBold Team -->
         <div class="mx-auto w-full max-w-[550px] bg-white">
-            <form>
+            <div class="capitalize font-bold mb-5"> {{$ok==='ok' ? 'Modifier l\'evenement'.$evenement->libelle : 'Ajouter un evenement'}}</div>
+            <form method="post" action="{{$ok && $ok==='ok' ? 'evenement/modifier/'.$evenement->id : '/evenement/ajouter'}}" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-5">
-                    <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Full Name
+                    <label for="libelle" class="mb-3 block text-base font-medium text-[#07074D]">
+                        Libellé
                     </label>
-                    <input type="text" name="name" id="name" placeholder="Full Name"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    <input type="text" name="libelle" id="name" placeholder="Libellé de l'evenement" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value="{{$ok && $ok==='ok' ? $evenement->libelle : '' }}"/>
                 </div>
                 <div class="mb-5">
-                    <label for="phone" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Phone Number
+                    <label for="date_limite_inscription" class="mb-3 block text-base font-medium text-[#07074D]">
+                      Date limite pour reserver
                     </label>
-                    <input type="text" name="phone" id="phone" placeholder="Enter your phone number"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    <input type="datetime-local" name="date_limite_inscription" id="phone" placeholder="Enter your phone number" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value="{{$ok && $ok==='ok' ? $evenement->date_limite_inscription : ''}}"/>
                 </div>
                 <div class="mb-5">
-                    <label for="email" class="mb-3 block text-base font-medium text-[#07074D]">
-                        Email Address
+                    <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
+                       La description de l'evenement :
                     </label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email"
-                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    <input type="text" name="description" id="email" placeholder="Decrivez votre evenement"
+                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value="{{$ok && $ok==='ok' ? $evenement->description : ''}}"/>
                 </div>
-                <div class="-mx-3 flex flex-wrap">
-                    <div class="w-full px-3 sm:w-1/2">
                         <div class="mb-5">
-                            <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
-                                Date
+                            <label for="image_mise_en_avant" class="mb-3 block text-base font-medium text-[#07074D]">
+                                L'image que vous souhaiter mettre en avant pour cet evenement
                             </label>
-                            <input type="date" name="date" id="date"
-                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                        </div>
+                            <input type="file" name="image_mise_en_avant" id="date" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                     </div>
-                    <div class="w-full px-3 sm:w-1/2">
                         <div class="mb-5">
-                            <label for="time" class="mb-3 block text-base font-medium text-[#07074D]">
-                                Time
+                            <label for="lieux" class="mb-3 block text-base font-medium text-[#07074D]">
+                                Le lieux où aura lieu l'evenement
                             </label>
-                            <input type="time" name="time" id="time"
-                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                            <input type="text" name="lieux" id="time" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" {{$ok && $ok==='ok' ? $evenement->lieux : ''}}/>
                         </div>
-                    </div>
-                </div>
-    
-                <div class="mb-5 pt-3">
-                    <label class="mb-5 block text-base font-semibold text-[#07074D] sm:text-xl">
-                        Address Details
+                <div class="mb-5">
+                    <label for="date_evenement" class="mb-5 block text-base font-semibold text-[#07074D] sm:text-xl">
+                        Date de l'evenement 
                     </label>
-                    <div class="-mx-3 flex flex-wrap">
-                        <div class="w-full px-3 sm:w-1/2">
-                            <div class="mb-5">
-                                <input type="text" name="area" id="area" placeholder="Enter area"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                            </div>
-                        </div>
-                        <div class="w-full px-3 sm:w-1/2">
-                            <div class="mb-5">
-                                <input type="text" name="city" id="city" placeholder="Enter city"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                            </div>
-                        </div>
-                        <div class="w-full px-3 sm:w-1/2">
-                            <div class="mb-5">
-                                <input type="text" name="state" id="state" placeholder="Enter state"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                            </div>
-                        </div>
-                        <div class="w-full px-3 sm:w-1/2">
-                            <div class="mb-5">
-                                <input type="text" name="post-code" id="post-code" placeholder="Post Code"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                            </div>
-                        </div>
-                    </div>
+                    <input type="datetime-local" name="date_evenement" id="phone" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value="{{$ok && $ok==='ok' ? $evenement->date_evenement : ''}}"/>
                 </div>
-    
                 <div>
-                    <button
+                    <button type="submit"
                         class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                        Book Appointment
+                       {{$ok==='ok' ? 'Modifier l\evenement ' : 'Ajouter un evenement'}}
                     </button>
                 </div>
             </form>

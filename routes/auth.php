@@ -15,7 +15,7 @@ use App\Models\Association;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login', [AuthenticatedSessionController::class, 'create']);
-Route::get('loginok', [AuthenticatedSessionController::class, 'store'])
+Route::post('loginok', [AuthenticatedSessionController::class, 'store'])
             ->name('loginok');
 Route::get('registeradmin', [AssociationController::class, 'create']);
 Route::post('registered', [AssociationController::class, 'store'])

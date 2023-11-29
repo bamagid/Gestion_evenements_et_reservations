@@ -25,12 +25,16 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth:association', 'verified'])->name('dashboard');
 
+Route::get('/addevents', [EvenementController::class, 'create']);
+Route::post('evenement/ajouter', [EvenementController::class, 'store']);
+Route::get('evenement/modifier/{id}', [EvenementController::class, 'edit']);
+Route::post('evenement/modifier/{id}', [EvenementController::class, 'update']);
 Route::middleware('multiauth')->group(function () {
-    Route::get('/addevents', [EvenementController::class, 'create']);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/deconnect', [AssociationController::class, 'destroy1']);
+    Route::get('/deconnect', [AssociationController::class, 'destroy1'])
+                    ->name('deconnect');
 });
 
 require __DIR__.'/auth.php';

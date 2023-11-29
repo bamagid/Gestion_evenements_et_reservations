@@ -22,7 +22,8 @@ class EvenementController extends Controller
      */
     public function create()
     {
-        return view('evenements.ajouter');
+        $ok="pas bon";
+        return view('evenements.ajouter',compact('ok'));
     }
 
     /**
@@ -38,6 +39,7 @@ class EvenementController extends Controller
             'lieux'=>'required|string',
             'date_evenement' => ['required', 'date'],
         ]);
+        // dd($request);
 
 
         if($request->file('image_mise_en_avant')){
@@ -77,9 +79,10 @@ class EvenementController extends Controller
      */
     public function edit($id)
     {
-        $evenements = Evenement::findOrFail($id);
+
+        $evenement = Evenement::findOrFail($id);
         $ok='ok';
-        return view('evenements.ajout',compact('evenements','ok'));
+        return view('evenements.ajouter',compact('evenement','ok'));
         
     }
 
