@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Association;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
-class AssociationController extends Controller
+class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class AssociationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Association $association)
+    public function show(Reservation $reservation)
     {
         //
     }
@@ -42,7 +42,7 @@ class AssociationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Association $association)
+    public function edit(Reservation $reservation)
     {
         //
     }
@@ -50,7 +50,7 @@ class AssociationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Association $association)
+    public function update(Request $request, Reservation $reservation)
     {
         //
     }
@@ -58,7 +58,7 @@ class AssociationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Association $association)
+    public function destroy(Reservation $reservation)
     {
         //
     }
