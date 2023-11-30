@@ -28,8 +28,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if (Auth::guard('client')->check()) {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } elseif (Auth::guard('association')->check()) {
+            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        }
     }
 
     /**
@@ -41,8 +44,7 @@ class AuthenticatedSessionController extends Controller
         $request->auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
- 
-        return redirect('/');
 
+        return redirect('/');
     }
 }

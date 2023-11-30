@@ -77,10 +77,10 @@ class EvenementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit()
     {
 
-        $evenement = Evenement::findOrFail($id);
+        $evenement = Evenement::findOrFail(1);
         $ok='ok';
         return view('evenements.ajouter',compact('evenement','ok'));
         
@@ -132,6 +132,7 @@ class EvenementController extends Controller
      */
     public function destroy(Evenement $evenement)
     {
+        $evenement=Evenement::findOrFail(1);
         $evenement->delete();
     }
 }

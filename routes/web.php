@@ -19,16 +19,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth:association', 'verified'])->name('dashboard');
 
-Route::get('/addevents', [EvenementController::class, 'create']);
+Route::get('/addevents', [EvenementController::class, 'create'])->name('addevent');
 Route::post('evenement/ajouter', [EvenementController::class, 'store']);
-Route::get('evenement/modifier/{id}', [EvenementController::class, 'edit']);
+Route::get('evenement/modifier', [EvenementController::class, 'edit']);
 Route::post('evenement/modifier/{id}', [EvenementController::class, 'update']);
+Route::get('evenement/supprimer/{id}', [EvenementController::class, 'destroy']);
 Route::middleware('multiauth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
