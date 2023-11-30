@@ -8,6 +8,7 @@ use App\Notifications\NewReservationNotification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ReservationController extends Controller
 {
@@ -16,6 +17,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
+        $reservations =Reservation::where('client_id', Auth::guard('client')->user()->id)->get();
+        return view('reservations.myreservations' , compact(['reservations']));
        
     }
 
@@ -38,14 +41,11 @@ class ReservationController extends Controller
        $reservation= Reservation::create([
             'client_id'=>Auth::guard('client')->user()->id,
             'nombre_de_place'=>$request->nombre_de_place,
-            'evenement_id'=>$request->evenement_id
+            'evenement_id'=>$request->evenement_id,
+            'reference'=>Str::random(10),
         ]);
-        if ($reservation->save()) {
-            try {  
-                 $reservation->user->notify(New NewReservationNotification($reservation->id));
-            } catch (Exception $e) {
-                dd($e);
-            }
+        if ($reservation->save()) { 
+                 $reservation->client->notify(New NewReservationNotification($reservation->id));
             return back()->with('status','Reservation effectué avec succées');
         }else{
 
@@ -56,9 +56,11 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Reservation $reservation)
+    public function show(Request $request)
     {
-        //
+        $reservations =Reservation::where('evenement_id',$request->id)->get();
+        return view('reservations.eventReservations' , compact(['reservations']));
+      
     }
 
     /**
@@ -82,11 +84,7 @@ class ReservationController extends Controller
         $reservation = Reservation::findOrFail($id);
         $reservation->update(['est_accepte_ou_pas'=>0]);
         if ($reservation->update(['est_accepte_ou_pas'=>0])) {
-            try {  
-                $reservation->user->notify(New DenyReservationNotification($reservation->id));
-           } catch (Exception $e) {
-               dd($e);
-           }
+            $reservation->client->notify(New DenyReservationNotification($reservation->id));
             return back()->with('status','La reservation a été annulée!');
         }
 

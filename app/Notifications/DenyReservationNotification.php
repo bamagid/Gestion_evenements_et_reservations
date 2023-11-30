@@ -37,7 +37,7 @@ class DenyReservationNotification extends Notification
     {
         $reservation=Reservation::findOrFail($this->id);
         $evenement=$reservation->evenement->libelle;
-        $client=$reservation->client->Nom;
+        $client=$reservation->client->Prenom." ".$reservation->client->Nom ;
 
         return (new MailMessage)
                     ->line("Bonjour $client  votre reservation pour l'evenement  $evenement a été annulé par son organisateur")

@@ -10,12 +10,11 @@
     <title>Ajouter un evenement</title>
 </head>
 
-<body>
-    <div class="w-full sm:max-w-md mt-6 px-4 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg"
+<body class="w-full">
+    <div class="w-full sm:max-w mt-6 px-4 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg"
         style="margin: auto;">
         {{-- <div class="flex items-center justify-center p-12"> --}}
-        <a href="/evenement/modifier" class="capitalize font-bold mb-5" style="margin: 5px 30%; display:flex; ">Modifier</a>
-        <div class="mx-auto w-full max-w-[550px] bg-white">
+            <div class="mx-auto w-full max-w-[550px] bg-white">
             <div class="capitalize font-bold mb-5" style="margin: 5px 30%; display:flex ;flex-wrap:nowrap;">
                 {{ $ok === 'ok' ? 'Modifier l\'evenement  ' . $evenement->libelle : 'Ajouter un evenement' }}</div>
             <form method="post"

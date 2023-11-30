@@ -71,7 +71,7 @@ class AssociationController extends Controller
 
             Auth::guard('association')->login($association);
 
-            return redirect(RouteServiceProvider::ADMIN_HOME);
+            return redirect('/dashboard');
         }
     }
 

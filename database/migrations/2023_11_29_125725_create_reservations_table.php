@@ -16,7 +16,8 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->integer('nombre_de_place');
+            $table->string('reference');
+            $table->integer('nombre_de_place')->default(1);
             $table->boolean('est_accepte_ou_pas')->default(true);
             $table->foreignIdFor(Client::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Evenement::class)->constrained()->onDelete('cascade');

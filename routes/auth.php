@@ -60,4 +60,6 @@ Route::middleware('multiauth')->group(function () {
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
+    Route::put('passwordadmin', [PasswordController::class, 'update'])->name('passwordadmin.update');
 });

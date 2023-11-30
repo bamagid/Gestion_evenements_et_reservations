@@ -37,11 +37,11 @@ class NewReservationNotification extends Notification
     {
         $reservation=Reservation::findOrFail($this->id);
         $evenement=$reservation->evenement->libelle;
-        $client=$reservation->client->Nom;
+        $client=$reservation->client->Prenom." ".$reservation->client->Nom;
 
         return (new MailMessage)
                     ->line("Nos salutations a vous cher $client  votre reservation pour l'evenement  $evenement a bien été pris en compte ")
-                    ->action('Voir mes reservation sur la plateforme', url('/mesReservation'))
+                    ->action('Voir mes reservation sur la plateforme', url('/myreservation'))
                     ->line('Merci de nous avoir choisie et bien des choses a vous!');
     }
 
