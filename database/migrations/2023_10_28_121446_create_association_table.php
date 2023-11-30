@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('associations', function (Blueprint $table) {
             $table->id();
             $table->string('Nom');
-            $table->date('Date_creation');
+            $table->dateTime('Date_creation');
             $table->string('slogan');
             $table->string('logo');
             $table->string('email')->unique();

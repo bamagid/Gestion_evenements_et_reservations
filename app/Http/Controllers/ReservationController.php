@@ -37,7 +37,6 @@ class ReservationController extends Controller
         ]);
        $reservation= Reservation::create([
             'client_id'=>Auth::guard('client')->user()->id,
-            'date_reservation'=>$request->date_reservation,
             'nombre_de_place'=>$request->nombre_de_place,
             'evenement_id'=>$request->evenement_id
         ]);

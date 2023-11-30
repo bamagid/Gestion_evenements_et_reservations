@@ -80,7 +80,7 @@ class EvenementController extends Controller
     public function edit()
     {
 
-        $evenement = Evenement::findOrFail(1);
+        $evenement = Evenement::findOrFail(2);
         $ok='ok';
         return view('evenements.ajouter',compact('evenement','ok'));
         
@@ -132,7 +132,8 @@ class EvenementController extends Controller
      */
     public function destroy(Evenement $evenement)
     {
-        $evenement=Evenement::findOrFail(1);
+        $evenement=Evenement::findOrFail(2);
         $evenement->delete();
+        return 'ok bien executé';
     }
 }
