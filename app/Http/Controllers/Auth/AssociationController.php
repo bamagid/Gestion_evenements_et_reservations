@@ -42,9 +42,9 @@ class AssociationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'Nom' => ['required', 'string', 'max:255'],
-            'Date_creation' => ['required', 'string', 'max:255'],
-            'slogan'=>'required|string',
+            'Nom' => ['required', 'regex:/^[a-zA-Z ]+$/', 'max:255'],
+            'Date_creation' => ['required', 'date'],
+            'slogan'=>['required','regex:/^[a-zA-Z ]+$/','max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.Client::class,'unique:'.Association::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -71,7 +71,7 @@ class AssociationController extends Controller
 
             Auth::guard('association')->login($association);
 
-            return redirect(RouteServiceProvider::ADMIN_HOME);
+            return redirect('/dashboard');
         }
     }
 

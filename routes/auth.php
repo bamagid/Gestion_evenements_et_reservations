@@ -15,7 +15,7 @@ use App\Models\Association;
 use Illuminate\Support\Facades\Route;
 
 Route::get('login', [AuthenticatedSessionController::class, 'create']);
-Route::get('loginok', [AuthenticatedSessionController::class, 'store'])
+Route::post('loginok', [AuthenticatedSessionController::class, 'store'])
             ->name('loginok');
 Route::get('registeradmin', [AssociationController::class, 'create']);
 Route::post('registered', [AssociationController::class, 'store'])
@@ -60,4 +60,6 @@ Route::middleware('multiauth')->group(function () {
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
+    Route::put('passwordadmin', [PasswordController::class, 'update'])->name('passwordadmin.update');
 });

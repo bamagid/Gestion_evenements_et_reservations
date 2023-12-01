@@ -25,6 +25,6 @@ class MultiauthMiddleware
             return $next($request);
         }
 
-        return redirect()->route('login');
+        return redirect('/login');
     }
 }
