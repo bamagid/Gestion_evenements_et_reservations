@@ -22,13 +22,13 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        if (Auth::guard('association')) {
+        if (Auth::guard('association')->user()) {
             return view('auth.registeradmin', [
                 'ok'=>'ok',
                 'user' => Auth::guard('association')->user(),
             ]);
-        }
-        if (Auth::guard('client')) {
+        }elseif(Auth::guard('client')->user()) {
+
             return view('auth.register', [
                 'ok'=>'ok',
                 'user' => Auth::guard('client')->user(),
@@ -42,14 +42,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request): RedirectResponse
     {
-        if (Auth::guard('client')) {
+        if (Auth::guard('client')->user()) {
             $request->validate([
                 'Nom' => ['required', 'Alpha', 'max:30'],
                 'Prenom' => ['required', 'regex:/^[a-zA-Z ]+$/', 'max:80'],
                 'Telephone'=>['numeric','regex:/^7[05768]{1}+[0-9]{7}$/'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
-            $client=Client::finOrFail(Auth::guard('client')->user()->id);
+            $client=Client::findOrFail(Auth::guard('client')->user()->id);
             $client->Nom=$request->Nom;
             $client->Prenom=$request->Prenom;
             if ($client->email !== $request->email) {
@@ -61,9 +61,8 @@ class ProfileController extends Controller
             $client->password=Hash::make($request->password);
             $client->Telephone=$request->Telephone;
             $client->update();
-            return Redirect::route('/')->with('status', 'Bravo vos informations ont été mise a jour avec succéss');
-        }
-        if (Auth::guard('association')) {
+            return redirect('/')->with('status', 'Bravo vos informations ont été mise a jour avec succéss');
+        }elseif (Auth::guard('association')->user()) {
             $request->validate([
                 'Nom' => ['required', 'regex:/^[a-zA-Z ]+$/', 'max:255'],
                 'Date_creation' => ['required', 'date'],
@@ -71,7 +70,8 @@ class ProfileController extends Controller
                 'logo'=>'sometimes',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()]
             ]);
-     $association=Association::finOrFail(Auth::guard('association')->user()->id);
+            // $id=;
+     $association=Association::findOrFail(Auth::guard('association')->user()->id);
            
         if($request->file('logo')){
             Storage::delete('/public/logos/'.$association->logo);
@@ -90,9 +90,24 @@ class ProfileController extends Controller
             }
             $association->email=$request->email;
             $association->password=Hash::make($request->password);
-            $association->update;
+            $association->update();
             return Redirect::route('dashboard')->with('status', 'Bravo vos informations ont été mise a jour avec succéss');
         }
+
+    }
+
+    public function delete(){
+        if (Auth::guard('association')->user()) {
+            return view('profile.edit', [
+                'user' => Auth::guard('association')->user(),
+            ]);
+        }elseif(Auth::guard('client')->user()) {
+            return view('profile.edit', [
+                'ok'=>'ok',
+                'user' =>Auth::guard('client')->user(),
+            ]);
+        }
+        abort(403, "Vous ne pouvez pas accedez a cette page");
 
     }
 
@@ -101,19 +116,39 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        if (Auth::guard('association')->user()) {
+            // dd($request);
+            if (Hash::check($request->password,Auth::guard('association')->user()->password)===false) {
+                return back()->with('status','Le mot de passe est incorrect');
+            }
+            
+            $user=Association::findOrFail(Auth::guard('association')->user()->id);
+            Auth::guard('association')->logout();
+            $user->delete();
 
-        $user = $request->user();
+    
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+    
+            return Redirect::to('/');
+        }
+        if (Auth::guard('client')->user()) {
+            // dd($request);
+            if (Hash::check($request->password,Auth::guard('client')->user()->password)===false) {
+                return back()->with('status','Le mot de passe est incorrect');
+            }
+            
+            $user=Client::findOrFail(Auth::guard('client')->user()->id);
+            Auth::guard('client')->logout();
+            $user->delete();
 
-        Auth::logout();
+    
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+    
+            return Redirect::to('/');
+        }
 
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+       
     }
 }

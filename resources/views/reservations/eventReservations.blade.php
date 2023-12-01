@@ -40,7 +40,6 @@
                         @if ($reservation->est_accepte_ou_pas === 1)
                             <form action="/reservation/decline/{{ $reservation->id }}" method="post">
                                 @csrf
-                                @method('put')
                                 <td class="py-2 px-4 border-b "> <button type="submit"
                                         class="bg-red-500  text-white font-bold py-2 px-4 rounded">Decline</button>
                                 </td>

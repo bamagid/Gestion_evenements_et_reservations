@@ -64,7 +64,7 @@ class EvenementController extends Controller
             'date_evenement' => $request->date_evenement,
         ]);
         if ($evenement->save()) {
-            return back()->with("status", "Evenement ajouté avec succés");
+            return redirect('/dashboard')->with("status", "Evenement ajouté avec succés");
         } else {
             return back()->with("status", "Erreur lors de l'ajout de l'evenement veuillez reessayez svp");
         }
@@ -125,7 +125,7 @@ class EvenementController extends Controller
         $evenement->date_evenement = $request->date_evenement;
 
         if ($evenement->update()) {
-            return back()->with("status", "Evenement modifié avec succés");
+            return redirect('/dashboard')->with("status", "Evenement modifié avec succés");
         } else {
             return back()->with("status", "Erreur lors de la modification de l'evenement veuillez reessayez svp");
         }

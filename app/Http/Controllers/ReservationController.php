@@ -17,7 +17,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations =Reservation::where('client_id', Auth::guard('client')->user()->id)->get();
+        $reservations =Reservation::where('client_id', Auth::guard('client')->user()->id)->orderBy('id DESC')->get();
         return view('reservations.myreservations' , compact(['reservations']));
        
     }
