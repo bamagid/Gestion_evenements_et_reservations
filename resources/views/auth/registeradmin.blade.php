@@ -1,31 +1,31 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('registeradmin') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{$ok==='ok' ? url('/profile/update') : route('registeradmin') }}" enctype="multipart/form-data">
         @csrf
         <!-- Full Name  -->
         <div>
-            <x-input-label for="Nom" :value="__('Nom')" />
-            <x-text-input  class="block mt-1 w-full" type="text" name="Nom" :value="old('Nom')" required autofocus autocomplete="Nom" />
+            <x-input-label for="Nom" value="Nom" />
+            <x-text-input  class="block mt-1 w-full" type="text" name="Nom" value="{{$ok==='ok' ? $user->Nom : ''}}" required autofocus autocomplete="Nom" />
             <x-input-error :messages="$errors->get('Nom')" class="mt-2" />
         </div>
 
              <!-- Creation date -->
              <div>
                 <x-input-label for="Date_creation" :value="__('Date de creation')" />
-                <x-text-input  class="block mt-1 w-full" type="date" name="Date_creation" :value="old('Date_creation')" required autofocus autocomplete="Date_creation" />
+                <x-text-input  class="block mt-1 w-full" type="date" name="Date_creation" value="{{$ok==='ok' ? $user->Date_creation : ''}}" required autofocus autocomplete="Date_creation" />
                 <x-input-error :messages="$errors->get('Date_creation')" class="mt-2" />
             </div>
 
         <!-- Telephone -->
         <div>
             <x-input-label for="slogan" :value="__('Slogan')" />
-            <x-text-input class="block mt-1 w-full" type="text" name="slogan" required autofocus  />
-            <x-input-error :messages="$errors->get('Telephone')" class="mt-2" />
+            <x-text-input class="block mt-1 w-full" type="text" name="slogan" value="{{$ok==='ok' ? $user->slogan : ''}}" required autofocus  />
+            <x-input-error :messages="$errors->get('slogan')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$ok==='ok' ? $user->email : ''}}" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

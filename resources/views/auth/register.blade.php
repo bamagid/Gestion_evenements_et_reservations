@@ -1,31 +1,31 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('registerok') }}">
+    <form method="POST" action="{{$ok==='ok' ? route('profile.update') : route('registerok') }}">
         @csrf
 
         <!-- First Name -->
         <div>
             <x-input-label for="Prenom" :value="__('Prenom')" />
-            <x-text-input  class="block mt-1 w-full" type="text" name="Prenom" :value="old('Prenom')" required autofocus autocomplete="Prenom" />
+            <x-text-input  class="block mt-1 w-full" type="text" name="Prenom" value="{{$ok==='ok' ? $user->Prenom : ''}}" required autofocus autocomplete="Prenom" />
             <x-input-error :messages="$errors->get('Prenom')" class="mt-2" />
         </div>
         <!-- Last Name -->
         <div>
             <x-input-label for="Nom" :value="__('Nom')" />
-            <x-text-input  class="block mt-1 w-full" type="text" name="Nom" :value="old('Nom')" required autofocus autocomplete="Nom" />
+            <x-text-input  class="block mt-1 w-full" type="text" name="Nom" value="{{$ok==='ok' ? $user->Nom : ''}}" required autofocus autocomplete="Nom" />
             <x-input-error :messages="$errors->get('Nom')" class="mt-2" />
         </div>
 
         <!-- Telephone -->
         <div>
             <x-input-label for="Telephone" :value="__('Telephone')" />
-            <x-text-input class="block mt-1 w-full" type="text" name="Telephone" :value="old('Telephone')" required autofocus autocomplete="Telephone" />
+            <x-text-input class="block mt-1 w-full" type="text" name="Telephone" value="{{$ok==='ok' ? $user->Telephone : ''}}" required autofocus autocomplete="Telephone" />
             <x-input-error :messages="$errors->get('Telephone')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$ok==='ok' ? $user->email: ''}}" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

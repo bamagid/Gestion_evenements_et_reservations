@@ -30,7 +30,7 @@ Route::get('evenement/supprimer/{id}', [EvenementController::class, 'destroy']);
 Route::get('evenement/cloturer/{id}', [EvenementController::class, 'cloture']);
 
  //gestion des reservations
-Route::put('/reservation/decline/{id}', [ReservationController::class, 'decline']);
+Route::get('/reservation/decline/{id}', [ReservationController::class, 'decline']);
 Route::post('/reserver', [ReservationController::class, 'store']);
 Route::get('/myreservation', [ReservationController::class, 'index']);
 Route::post('/evenement/reservations', [ReservationController::class, 'show']);
@@ -44,7 +44,7 @@ Route::middleware('multiauth')->group(function () {
     
     //gestions des utilisateurs
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/update', [ProfileController::class, 'update']);
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/profileadmin', [ProfileAdminController::class, 'edit'])->name('profileadmin.edit');

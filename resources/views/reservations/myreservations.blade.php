@@ -34,13 +34,13 @@
                 <tr  class="hover:bg-gray-100">
                     <td class="py-2 px-20 border-b">{{ $reservation->evenement->libelle }}</td>
                     <td class="py-2 px-20 border-b">{{ $reservation->evenement->association->Nom }}</td>
-                    <td class="py-2 px-20 border-b">{{ $reservation->created_at }}</td>
-                    <td class="py-2 px-20 border-b">{{ $reservation->evenement->date_evenement }}</td>
+                    <td class="py-2 px-20 border-b">{{ date( 'j F Y H:i:s' ,strtotime($reservation->created_at ))}}</td>
+                    <td class="py-2 px-20 border-b">{{date( 'j F Y H:i:s' ,strtotime( $reservation->evenement->date_evenement)) }}</td>
                     <td class="py-2 px-20 border-b">{{ $reservation->reference }}</td>
                     <td class="py-2 px-20 border-b">{{ $reservation->nombre_de_place }}</td>
                 </tr>
             @empty
-                Vous n'avez pas encore de reservations sur notre site
+            <p class="text-3xl font-bold mb-6">   Vous n'avez pas encore de reservations sur notre site </p>
             @endforelse
         </tbody>
     </table>

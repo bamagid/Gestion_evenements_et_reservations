@@ -41,10 +41,10 @@
                                   Description: {!! nl2br(e($evenement->description)) !!}
                                 </p>
                                 <div class="font-bold text-xl mb-2">Date limite pour s'inscrire:
-                                    {{ $evenement->date_limite_inscription }}</div>
+                                    {{ date( 'j F Y H:i:s' ,strtotime($evenement->date_limite_inscription ))}}</div>
                                 <div class="font-bold text-xl mb-2">Organisateur de l'evenement: {{ $evenement->association->Nom }}
                                 </div>
-                                <div class="font-bold text-xl mb-2">L'evenement aura lieux le: {{ $evenement->date_evenement }}
+                                <div class="font-bold text-xl mb-2">L'evenement aura lieux le: {{ date( 'j F Y H:i:s' ,strtotime($evenement->date_evenement)) }}
                                 </div>
                                 <div class="font-bold text-xl mb-2">Lieux de l'evenenement: {{ $evenement->lieux }}</div>
                             </div>

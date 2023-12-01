@@ -35,7 +35,7 @@
                         <td class="py-2 px-12 border-b ">{{ $reservation->client->Prenom }}
                             {{ $reservation->client->Nom }}</td>
                         <td class="py-2 px-20 border-b ">{{ $reservation->client->email }}</td>
-                        <td class="py-2 px-20 border-b ">{{ $reservation->created_at }}</td>
+                        <td class="py-2 px-20 border-b ">{{ date( 'j F Y H:i:s' ,strtotime($reservation->created_at ))}}</td>
                         <td class="py-2 px-20 border-b ">{{ $reservation->nombre_de_place }}</td>
                         @if ($reservation->est_accepte_ou_pas === 1)
                             <form action="/reservation/decline/{{ $reservation->id }}" method="post">
@@ -52,7 +52,7 @@
                         <td class=" py-2 px-20 border-b">{{ $reservation->reference }}</td>
                     </tr>
                 @empty
-                    Vous n'avez pas encore de reservations sur notre site
+                 <p class="text-3xl font-bold mb-6"> Cet evenement n'as pas encore de reservation </p> 
                 @endforelse
             </tbody>
         </table>

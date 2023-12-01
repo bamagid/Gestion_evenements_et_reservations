@@ -7,9 +7,11 @@ use App\Models\Association;
 use App\Models\Client;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon as SupportCarbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -17,12 +19,12 @@ use Illuminate\View\View;
 
 class AssociationController extends Controller
 {
+ 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
     }
 
    
@@ -31,7 +33,8 @@ class AssociationController extends Controller
      */
     public function create(): View
     {
-        return view('auth.registeradmin');
+        $ok='non';
+        return view('auth.registeradmin',compact('ok'));
     }
 
     /**
