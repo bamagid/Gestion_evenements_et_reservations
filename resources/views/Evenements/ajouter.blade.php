@@ -11,10 +11,8 @@
 </head>
 
 <body class="w-full">
-    <div class="w-full sm:max-w mt-6 px-4 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg"
-        style="margin: auto;">
-        {{-- <div class="flex items-center justify-center p-12"> --}}
-            <div class="mx-auto w-full max-w-[550px] bg-white">
+    <div class="w-full mt-6 px-4 py-4 bg-white  shadow-md overflow-hidden">
+        <div class="mx-auto w-full max-w-[500px] bg-white">
             <div class="capitalize font-bold mb-5" style="margin: 5px 30%; display:flex ;flex-wrap:nowrap;">
                 {{ $ok === 'ok' ? 'Modifier l\'evenement  ' . $evenement->libelle : 'Ajouter un evenement' }}</div>
             <form method="post"
@@ -42,9 +40,9 @@
                     <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">
                         La description de l'evenement :
                     </label>
-                    <input type="text" name="description" id="email" placeholder="Decrivez votre evenement"
+                    <textarea name="description"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                        value="{{ $ok && $ok === 'ok' ? $evenement->description : '' }}" />
+                        cols="10" rows="10">{{ $ok && $ok === 'ok' ? $evenement->description : '' }}</textarea>
                 </div>
                 <div class="mb-5">
                     <label for="image_mise_en_avant" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -77,7 +75,6 @@
                 </div>
             </form>
         </div>
-        {{-- </div> --}}
     </div>
 </body>
 
