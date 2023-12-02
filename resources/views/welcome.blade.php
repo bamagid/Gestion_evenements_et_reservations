@@ -93,11 +93,11 @@
         <div class="w-full my-10 flex flex-wrap justify-around">
             @forelse ($evenements as $evenement)
                 <div class="w-2/5 mx-auto my-10 rounded overflow-hidden shadow-lg">
-                    <img class="w-full h-3/6" src="{{ asset('evenements/' . $evenement->image_mise_en_avant) }}"
+                    <img class="w-full h-2/5" src="{{ asset('evenements/' . $evenement->image_mise_en_avant) }}"
                         alt="Image mise en avant pour l'evenement">
                     <div class="px-6 py-4">
                         <div class="font-bold text-xl mb-2">Libelle : {{ $evenement->libelle }}</div>
-                        <p class="font-bold text-xl mb-2">
+                        <p class="px-2 max-h-40 overflow-y-auto font-bold text-xl mb-2">
                             Description: {!! nl2br(e($evenement->description)) !!}
                         </p>
                         <div class="font-bold text-xl mb-2">Date limite pour s'inscrire:
@@ -110,6 +110,7 @@
                         </div>
                         <div class="font-bold text-xl mb-2">Lieux de l'evenenement: {{ $evenement->lieux }}</div>
                     </div>
+                    @if ($evenement->est_cloture_ou_pas===0)                
                     <div class="d-flex justify-center flex-row px-6 py-4">
                         <form action="/reserver/evenement" method="post">
                             @csrf
@@ -118,10 +119,14 @@
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-700 mt-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Reserver</button>
-
                         </form>
                     </div>
                 </div>
+                    @else
+                    <div class="font-bold text-xl mb-2">
+                        L'evenement est cloturé, vous ne pouvez pas vous inscrire.
+                    </div>
+                    @endif
             @empty
                 Desolé il n'y a pas d'evenement disponible actuellement
             @endforelse

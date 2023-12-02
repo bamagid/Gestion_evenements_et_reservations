@@ -23,7 +23,7 @@
                     <label for="libelle" class="mb-3 block text-base font-medium text-[#07074D]">
                         Libellé
                     </label>
-                    <input type="text" name="libelle" id="name" placeholder="Libellé de l'evenement"
+                    <input type="text" name="libelle"  placeholder="Libellé de l'evenement"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         value="{{ $ok && $ok === 'ok' ? $evenement->libelle : '' }}" />
                 </div>
@@ -31,7 +31,7 @@
                     <label for="date_limite_inscription" class="mb-3 block text-base font-medium text-[#07074D]">
                         Date limite pour reserver
                     </label>
-                    <input type="datetime-local" name="date_limite_inscription" id="phone"
+                    <input type="datetime-local" name="date_limite_inscription" 
                         placeholder="Enter your phone number"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         value="{{ $ok && $ok === 'ok' ? $evenement->date_limite_inscription : '' }}" />
@@ -48,14 +48,14 @@
                     <label for="image_mise_en_avant" class="mb-3 block text-base font-medium text-[#07074D]">
                         L'image que vous souhaiter mettre en avant pour cet evenement
                     </label>
-                    <input type="file" name="image_mise_en_avant" id="date"
+                    <input type="file" name="image_mise_en_avant"   {{ $ok && $ok === 'ok' ? '' : 'required' }}
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                 </div>
                 <div class="mb-5">
                     <label for="lieux" class="mb-3 block text-base font-medium text-[#07074D]">
                         Le lieux où aura lieu l'evenement
                     </label>
-                    <input type="text" name="lieux" id="time"
+                    <input type="text" name="lieux" 
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         value="{{ $ok && $ok === 'ok' ? $evenement->lieux : '' }}" />
                 </div>
@@ -63,7 +63,7 @@
                     <label for="date_evenement" class="mb-5 block text-base font-semibold text-[#07074D] sm:text-xl">
                         Date de l'evenement
                     </label>
-                    <input type="datetime-local" name="date_evenement" id="phone"
+                    <input type="datetime-local" name="date_evenement"
                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         value="{{ $ok && $ok === 'ok' ? $evenement->date_evenement : '' }}" />
                 </div>

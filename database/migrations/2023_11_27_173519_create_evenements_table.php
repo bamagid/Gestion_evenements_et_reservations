@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('libelle');
             $table->dateTime('date_limite_inscription')->nullable()->default(now());
-            $table->string('description');
+            $table->text('description');
             $table->string('image_mise_en_avant');
             $table->boolean('est_cloture_ou_pas')->default(false);
             $table->string('lieux');
