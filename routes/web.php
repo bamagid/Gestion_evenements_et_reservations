@@ -19,29 +19,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [EvenementController::class,'index'])->name('home');
+Route::get('/', [EvenementController::class, 'index'])->name('home');
 
-//gestion des evenements
-Route::get('/addevents', [EvenementController::class, 'create'])->name('addevent');
-Route::post('evenement/ajouter', [EvenementController::class, 'store']);
-Route::get('evenement/update/{id}', [EvenementController::class, 'edit']);
-Route::post('evenement/modifier/{id}', [EvenementController::class, 'update']);
-Route::get('evenement/supprimer/{id}', [EvenementController::class, 'destroy']);
-Route::get('evenement/cloturer/{id}', [EvenementController::class, 'cloture']);
+Route::middleware('multiauth:association')->group(function () {
 
- //gestion des reservations
-Route::post('/reservation/decline/{id}', [ReservationController::class, 'decline']);
-Route::post('/reserver/evenement', [ReservationController::class, 'store']);
-Route::get('/myreservation', [ReservationController::class, 'index']);
-Route::post('/evenement/reservations', [ReservationController::class, 'show']);
+    //gestion des evenements
+    Route::get('/addevents', [EvenementController::class, 'create'])->name('addevent');
+    Route::post('evenement/ajouter', [EvenementController::class, 'store']);
+    Route::get('/myevents', [EvenementController::class, 'show'])->name('myevents');
+    Route::get('evenement/update/{id}', [EvenementController::class, 'edit']);
+    Route::post('evenement/modifier/{id}', [EvenementController::class, 'update']);
+    Route::get('evenement/supprimer/{id}', [EvenementController::class, 'destroy']);
+    Route::get('evenement/cloturer/{id}', [EvenementController::class, 'cloture']);
+
+    //gestion des reservations
+    Route::post('/reservation/decline', [ReservationController::class, 'decline']);
+    Route::post('/reserver/evenement', [ReservationController::class, 'store']);
+    Route::get('/myreservation', [ReservationController::class, 'index']);
+    Route::post('/evenement/reservations', [ReservationController::class, 'show']);
+
+
+    Route::get('/dashboard', [EvenementController::class, 'events'])->name('dashboard');
 
 
 
-Route::middleware('multiauth')->group(function () {
-    Route::get('/dashboard',[EvenementController::class, 'events'])->name('dashboard');
-
-    Route::get('/myevents',[EvenementController::class, 'show'])->name('myevents');
-    
     //gestions des utilisateurs
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update']);
@@ -49,12 +50,8 @@ Route::middleware('multiauth')->group(function () {
     Route::get('/profile/delete', [ProfileController::class, 'delete']);
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/profileadmin', [ProfileAdminController::class, 'edit'])->name('profileadmin.edit');
-    Route::patch('/profileadmin', [ProfileAdminController::class, 'update'])->name('profileadmin.update');
-    Route::delete('/profileadmin', [ProfileAdminController::class, 'destroy'])->name('profileadmin.destroy');
-
     Route::get('/deconnect', [AssociationController::class, 'destroy1'])
-                    ->name('deconnect');
+        ->name('deconnect');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

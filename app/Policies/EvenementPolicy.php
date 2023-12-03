@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Association;
 use App\Models\Evenement;
-use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
 class EvenementPolicy
@@ -11,47 +11,68 @@ class EvenementPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Association $association)
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Evenement $evenement): bool
+    public function view(Association $association, Evenement $evenement)
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(Association $association)
     {
-        //
+       return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Evenement $evenement): bool
+    public function update(Association $association, Evenement $evenement)
     {
-        //
+        return  $association->id === $evenement->association_id
+        ?
+        Response::Allow()
+        :
+        Response::Deny("Vous n'avez pas les droits pour modifier les  informations de cet evenement");
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Evenement $evenement): bool
+    public function delete(Association $association, Evenement $evenement)
     {
-        //
+        return  $association->id === $evenement->association_id
+        ?
+        Response::Allow()
+        :
+        Response::Deny("Vous n'avez pas les droits pour supprimer cet evenement");
+    }
+
+
+       /**
+     * Determine whether the user can update th reservation model.
+     */
+    public function declineReservation(Association $association, Evenement $evenement)
+    {
+        return  $association->id === $evenement->reservations->association_id
+        ?
+        Response::Allow()
+        :
+        Response::Deny("Vous n'avez pas les droits pour supprimer cet evenement");
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Evenement $evenement): bool
+    public function restore(Association $association, Evenement $evenement)
     {
         //
     }
@@ -59,7 +80,7 @@ class EvenementPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Evenement $evenement): bool
+    public function forceDelete(Association $association, Evenement $evenement)
     {
         //
     }

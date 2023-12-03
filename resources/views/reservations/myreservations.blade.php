@@ -15,10 +15,28 @@
     <title>mes reservations</title>
 </head>
 
-<body class="font-sans antialiased bg-gray-100 p-8">
+<body class="font-sans antialiased max-w-md bg-gray-100 py-8">
+    @if (session('status'))
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    </div>
+    @endif
+    @if (session('error'))
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    </div>
+    @endif
+   
     <div class="container mx-auto">
-        <h1 class="text-3xl font-bold mb-6">Reservations</h1>
-    <table class="min-w-full border border-gray-300 bg-white shadow-md">
+        <nav>
+            <p><a href="{{ url('/') }}" class="font-semibold hover:underline">{{ __('Accueil')}}</a></p>
+        </nav>
+        <h1 class="text-3xl font-bold mb-6">Mes reservations</h1>
+    <table class=" border  border-gray-300 bg-white shadow-md">
         <thead>
             <tr>
                 <th class="py-2 px-4 border-b">Nom de l'evenement</th>

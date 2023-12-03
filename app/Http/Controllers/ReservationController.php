@@ -17,9 +17,8 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations =Reservation::where('client_id', Auth::guard('client')->user()->id)->orderBy('id DESC')->get();
-        return view('reservations.myreservations' , compact(['reservations']));
-       
+        $reservations = Reservation::where('client_id', Auth::guard('client')->user()->id)->orderBy('id', 'DESC')->get();
+        return view('reservations.myreservations', compact(['reservations']));
     }
 
     /**
@@ -27,7 +26,6 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -38,18 +36,18 @@ class ReservationController extends Controller
         $request->validate([
             'nombre_de_place' => ['required', 'numeric', 'min:1'],
         ]);
-       $reservation= Reservation::create([
-            'client_id'=>Auth::guard('client')->user()->id,
-            'nombre_de_place'=>$request->nombre_de_place,
-            'evenement_id'=>$request->evenement_id,
-            'reference'=>Str::random(10),
+        $reservation = Reservation::create([
+            'client_id' => Auth::guard('client')->user()->id,
+            'nombre_de_place' => $request->nombre_de_place,
+            'evenement_id' => $request->evenement_id,
+            'reference' => Str::random(10),
         ]);
-        if ($reservation->save()) { 
-                 $reservation->client->notify(New NewReservationNotification($reservation->id));
-            return back()->with('status','Reservation effectué avec succées');
-        }else{
+        if ($reservation->save()) {
+            $reservation->client->notify(new NewReservationNotification($reservation->id));
+            return redirect('/')->with('status', 'Reservation effectué avec succées');
+        } else {
 
-            return back()->with('status','Reservation effectué echoué reesayé');
+            return back()->with('error', 'La reservation a echoué veuillez reesayer svp');
         }
     }
 
@@ -58,9 +56,9 @@ class ReservationController extends Controller
      */
     public function show(Request $request)
     {
-        $reservations =Reservation::where('evenement_id',$request->id)->get();
-        return view('reservations.eventReservations' , compact(['reservations']));
-      
+        $reservations = Reservation::where('evenement_id', $request->id)->get();
+        // $this->authorize('update',$reservations->evenement,'association');
+        return view('reservations.eventReservations', compact(['reservations']));
     }
 
     /**
@@ -76,18 +74,21 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        //
     }
 
 
-    public function decline($id){
-        $reservation = Reservation::findOrFail($id);
-        $reservation->update(['est_accepte_ou_pas'=>0]);
-        if ($reservation->update(['est_accepte_ou_pas'=>0])) {
-            $reservation->client->notify(New DenyReservationNotification($reservation->id));
-            return back()->with('status','La reservation a été annulée!');
+    public function decline(Request $request)
+    {
+        $reservation = Reservation::findOrFail($request->id);
+        if ($reservation->evenement->association_id === Auth::guard('association')->user()->id) {
+            // $this->authorize('update',$reservation->evenement,'association');
+            $reservation->update(['est_accepte_ou_pas' => 0]);
+                $reservation->client->notify(new DenyReservationNotification($reservation->id));
+                return redirect('/dashboard')->with('status', 'La reservation a été annulée!');
         }
 
+
+        abort(403, "Vous n'avez pas le droit pour modifier cet evenement");
     }
 
     /**

@@ -11,6 +11,20 @@
 </head>
 
 <body class="w-full">
+    @if (session('status'))
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    </div>
+    @endif
+    @if (session('error'))
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    </div>
+    @endif
     <div class="w-full mt-6 px-4 py-4 bg-white  shadow-md overflow-hidden">
         <div class="mx-auto w-full max-w-[500px] bg-white">
             <div class="capitalize font-bold mb-5" style="margin: 5px 30%; display:flex ;flex-wrap:nowrap;">
@@ -70,7 +84,7 @@
                 <div>
                     <button type="submit"
                         class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-                        {{ $ok === 'ok' ? 'Modifier l\evenement ' : 'Ajouter un evenement' }}
+                        {{ $ok === 'ok' ? 'Modifier l\'evenement ' : 'Ajouter un evenement' }}
                     </button>
                 </div>
             </form>
