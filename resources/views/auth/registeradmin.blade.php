@@ -33,7 +33,7 @@
              <!-- Logo -->
              <div>
                 <x-input-label for="logo" :value="__('Logo')" />
-                <x-text-input  class="block mt-1 w-full" type="file" name="logo"  {{ $ok && $ok === 'ok' ? '' : 'required' }} :value="old('logo')" required autofocus autocomplete="logo" />
+                <x-text-input class="block mt-1 w-full" type="file" name="logo" :value="old('logo')" required autofocus autocomplete="logo" />
                 <x-input-error :messages="$errors->get('logo')" class="mt-2" />
             </div>
 

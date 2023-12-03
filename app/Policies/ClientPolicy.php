@@ -2,41 +2,42 @@
 
 namespace App\Policies;
 
-use App\Models\Association;
+use App\Models\Client;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
 
-class AssociationPolicy
+class ClientPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(Association $association): bool
+    public function viewAny(Client $client)
     {
-        return true;
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(Association $association)
+    public function view(Client $client)
     {
-        return true;
+       return true;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(Association $association)
+    public function create(Client $client)
     {
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(Association $association ,Association $associations)
+    public function update(Client $client, Client $clients)
     {
-        return  $association->id === $associations->id
+        return $client->id === $clients->id
             ?
             Response::Allow()
             :
@@ -46,19 +47,19 @@ class AssociationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(Association $association ,Association $associations)
+    public function delete(Client $client, Client $clients)
     {
-        return  $association->id === $associations->id
-            ?
-            Response::Allow()
-            :
-            Response::Deny("Vous ne pouvez pas supprimer les  informations de cet utilisateur");
+        return $client->id === $clients->id
+        ?
+        Response::Allow()
+        :
+        Response::Deny("Vous ne pouvez pas supprimer les  informations de cet utilisateur");
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(Association $association)
+    public function restore(Client $client) 
     {
         //
     }
@@ -66,7 +67,7 @@ class AssociationPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(Association $association)
+    public function forceDelete(Client $client)
     {
         //
     }

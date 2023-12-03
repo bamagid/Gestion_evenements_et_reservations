@@ -1,4 +1,18 @@
 <x-app-layout>
+    @if (session('status'))
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    </div>
+    @endif
+    @if (session('error'))
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    </div>
+    @endif
     <div class=" w-full my-10 flex  flex-wrap justify-around">
         @forelse ($evenements as $evenement)
             <div class="w-2/5 mx-auto  my-10 rounded  shadow-lg">
@@ -36,7 +50,7 @@
                         @endif
                     </div>
                 @else
-                    <div class="font-bold text-xl mb-2">
+                   <br><div class="font-bold mx-2 text-xl mb-2">
                         Cet evenement ne vous appartient pas
                     </div>
                 @endif

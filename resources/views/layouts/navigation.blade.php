@@ -47,42 +47,43 @@
                             {{ __('Se deconnecter') }}
                         </x-dropdown-link>
                         {{-- Supprimer son compte --}}
-                            <x-danger-button x-data=""
-                                x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">{{ __('Delete Account') }}</x-danger-button>
 
-                            <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                                <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
-                                    @csrf
-                                    @method('delete')
+                        <x-danger-button x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">{{ __('Supprimer mon compte') }}</x-danger-button>
 
-                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                        {{ __('Are you sure you want to delete your account?') }}
-                                    </h2>
+                        <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                            <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+                                @csrf
+                                @method('delete')
 
-                                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                        {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
-                                    </p>
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                    {{ __('Êtes vous sure de vouloir supprimer votre compte?') }}
+                                </h2>
 
-                                    <div class="mt-6">
-                                        <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                    {{ __('Une fois le compte supprimer il n\'y a plus de retour en arriere , vous perdrer toutes vos donnéess. ') }}
+                                </p>
 
-                                        <x-text-input id="password" name="password" type="password"
-                                            class="mt-1 block w-3/4" placeholder="{{ __('Password') }}" />
+                                <div class="mt-6">
+                                    <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
-                                        <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
-                                    </div>
+                                    <x-text-input id="password" name="password" type="password"
+                                        class="mt-1 block w-3/4" placeholder="{{ __('Mot de passe') }}" />
 
-                                    <div class="mt-6 flex justify-end">
-                                        <x-secondary-button x-on:click="$dispatch('close')">
-                                            {{ __('Cancel') }}
-                                        </x-secondary-button>
+                                    <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                                </div>
 
-                                        <x-danger-button class="ms-3">
-                                            {{ __('Delete Account') }}
-                                        </x-danger-button>
-                                    </div>
-                                </form>
-                            </x-modal>
+                                <div class="mt-6 flex justify-end">
+                                    <x-secondary-button x-on:click="$dispatch('close')">
+                                        {{ __('Annuler') }}
+                                    </x-secondary-button>
+
+                                    <x-danger-button class="ms-3">
+                                        {{ __('Supprimer mon compte') }}
+                                    </x-danger-button>
+                                </div>
+                            </form>
+                        </x-modal>
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -99,36 +100,6 @@
                             stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">
-                    {{ Auth::guard('association')->user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::guard('association')->user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-
-                {{-- <x-responsive-nav-link :href="{{ url('/deconnect') }}">
-                        {{ __('Se deconnecter') }}
-                    </x-responsive-nav-link> --}}
             </div>
         </div>
     </div>

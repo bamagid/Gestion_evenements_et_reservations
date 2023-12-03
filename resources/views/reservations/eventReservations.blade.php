@@ -15,8 +15,23 @@
     <title>mes reservations</title>
 </head>
 
-<body class="font-sans antialiased bg-gray-100 p-8">
-    <div class="container mx-auto">
+<body class="font-sans antialiased  bg-gray-100 p-8">
+    @include('layouts.navigation')
+    @if (session('status'))
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+</div>
+@endif
+@if (session('error'))
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+</div>
+@endif
+    <div class="container w-md mx-auto">
         <h1 class="text-3xl font-bold mb-6">Les reservation de cet evenement</h1>
         <table class="min-w-full border border-gray-300 bg-white shadow-md">
             <thead>
@@ -38,9 +53,11 @@
                         <td class="py-2 px-20 border-b ">{{ date( 'j F Y H:i:s' ,strtotime($reservation->created_at ))}}</td>
                         <td class="py-2 px-20 border-b ">{{ $reservation->nombre_de_place }}</td>
                         @if ($reservation->est_accepte_ou_pas === 1)
-                            <form action="/reservation/decline/{{ $reservation->id }}" method="post">
+                            <form action="/reservation/decline" method="post">
                                 @csrf
-                                <td class="py-2 px-4 border-b "> <button type="submit"
+                                <td class="py-2 px-4 border-b "> 
+                                    <input type="hidden" name="id" value="{{ $reservation->id }}">
+                                    <button type="submit"
                                         class="bg-red-500  text-white font-bold py-2 px-4 rounded">Decline</button>
                                 </td>
                             </form>

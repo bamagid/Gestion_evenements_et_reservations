@@ -17,7 +17,7 @@ class NewReservationNotification extends Notification
      */
     public function __construct($id)
     {
-        return $this->id;
+        return $this->id=$id;
     }
 
     /**
